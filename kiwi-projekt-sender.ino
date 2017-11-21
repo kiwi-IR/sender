@@ -1,5 +1,5 @@
 /*
- * Sender des Kiwi Projekts "Infrarot Übertragung"
+   Sender des Kiwi Projekts "Infrarot Übertragung"
 */
 #include "SevSeg.h"
 #include "Keypad.h"
@@ -69,15 +69,21 @@ void dlast(int *arr) {
 
 // Sendet die Zahlen über Infrarot zum Empfänger
 void infrarot(int *arr) {
+  irsend.sendRC5(12, 12);
+  delay(20);
   for (i = 0; i < 10; i++) {
+    switch(arr[i]) {
+      case 1: arr[i] = 21; break;
+      case 3: arr[i] = 23; break;
+      case 7: arr[i] = 27; break;
+      case 0: arr[i] = 20; break;
+    }
     irsend.sendRC5(arr[i], 12);
     delay(20);
     Serial.print("TX:");
     Serial.println(arr[i]);
   }
-
   irsend.sendRC5(13, 12);
-  irsend.sendRC5(10, 12);
 }
 
 void setup() {
@@ -90,7 +96,7 @@ void setup() {
   byte digitPins[] = {A5, A4};
   byte segmentPins[] = {A1, A3, 4, 9, 2, A2, A0, 0};
   sevseg.begin(COMMON_CATHODE, numDigits, digitPins, segmentPins);
-  sevseg.setBrightness(10);
+  sevseg.setBrightness(100);
 
   dlast(tosend);
 }
