@@ -16,8 +16,8 @@ char keys[ROWS][COLS] = {
   {'7', '8', '9'},
   {'*', '0', '#'}
 };
-byte rowPins[ROWS] = {8, 11, 12, 6};
-byte colPins[COLS] = {10, 5, 7};
+byte rowPins[ROWS] = {6, 12, 11, 8};
+byte colPins[COLS] = {7, 5, 10};
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 // Variablen
@@ -94,8 +94,8 @@ void setup() {
   // 7 Segment Display initialisieren
   byte numDigits = 2;
   byte digitPins[] = {A5, A4};
-  byte segmentPins[] = {A1, A3, 4, 9, 2, A2, A0, 0};
-  sevseg.begin(COMMON_CATHODE, numDigits, digitPins, segmentPins);
+  byte segmentPins[] = {A3, A0, 2, 9, 4, A2, A1, 13};
+  sevseg.begin(COMMON_ANODE, numDigits, digitPins, segmentPins);
   sevseg.setBrightness(100);
 
   dlast(tosend);
